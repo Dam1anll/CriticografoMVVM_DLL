@@ -5,9 +5,8 @@
              xmlns:vm="clr-namespace:CriticografoMVVM_DLL.ViewModels">
 
     <ContentPage.Content>
-        <StackLayout>
-
-            <StackLayout BackgroundColor="#63C5DA" Padding="25,25,25,25">
+        <StackLayout BackgroundColor="#242424">
+            <StackLayout BackgroundColor="#FF4081" Padding="25,25,25,25">
                 <Label Text="Actividad: Criticografo" 
                 HorizontalOptions="CenterAndExpand"
                    FontSize="Title"
@@ -16,15 +15,15 @@
 
             <StackLayout Padding="10,10,10,10">
                 <Label Text="Nombre: " TextColor="White" FontSize="20"/>
-                <Frame BorderColor="Black" Margin="10" Padding="5,5,5,5">
-                    <Entry Placeholder="Escribe su nombre" PlaceholderColor="Black" Keyboard="Text" TextColor="Black" Text="{Binding Nombre}"/>
+                <Frame BorderColor="Black" Margin="10" Padding="5,5,5,5" BackgroundColor="White">
+                    <Entry Placeholder="Escribe su nombre" PlaceholderColor="#FF4081" Keyboard="Text" TextColor="#FF4081" Text="{Binding Nombre}" />
                 </Frame>
             </StackLayout>
 
             <Grid>
                 <Label Text="Genero: " Grid.Row="0" Grid.Column="0" TextColor="White" FontSize="20" Padding="10,0,0,0"/>
-                <RadioButton Content="Hombre" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Padding="10,0,0,0" IsChecked="{Binding Hombre}"/>
-                <RadioButton Content="Mujer" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+                <RadioButton Content="Masculino" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Padding="10,0,0,0" IsChecked="{Binding Hombre}" TextColor="White"/>
+                <RadioButton Content="Femenino" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" IsChecked="{Binding Mujer}" TextColor="White"/>
             </Grid>
 
             <Grid Padding="10,10,10,10">
@@ -61,14 +60,14 @@
             </Grid>
 
             <StackLayout>
-                <Button Text="Criticar" CornerRadius="5" BackgroundColor="#63C5DA" TextColor="White" 
+                <Button Text="Criticar" CornerRadius="5" BackgroundColor="#FF4081" TextColor="White" 
                         HorizontalOptions="Center" FontSize="15" Padding="100,5,100,5" Command="{Binding CriticarCommand}"/>
             </StackLayout>
 
             <StackLayout>
-                <Label Text="Datos: " TextColor="White" FontSize="20"/>
-                <Frame BorderColor="Black" Margin="20">
-                    <Entry TextColor="Black" IsReadOnly="True" Text="{Binding Datos}"/>
+                <Label Text="Datos: " TextColor="White" FontSize="20" Padding="20,0,0,0"/>
+                <Frame BorderColor="Black" Margin="20" BackgroundColor="White">
+                    <Editor TextColor="#FF4081" IsReadOnly="True" Text="{Binding Datos}" Margin="0,0,0,20" AutoSize="TextChanges"/>
                 </Frame>
             </StackLayout>
         </StackLayout>

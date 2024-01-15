@@ -17,6 +17,7 @@ namespace CriticografoMVVM_DLL.ViewModels
         #region VARIABLES
         private string _nombre;
         private bool _hombre;
+        private bool _mujer;
         private bool _alto;
         private bool _listo;
         private bool _raro;
@@ -41,6 +42,11 @@ namespace CriticografoMVVM_DLL.ViewModels
         {
             get { return _hombre; }
             set { SetValue(ref _hombre, value); }
+        }
+        public bool Mujer
+        {
+            get { return _mujer; }
+            set { SetValue(ref _mujer, value); }
         }
         public bool Alto 
         {
@@ -79,9 +85,28 @@ namespace CriticografoMVVM_DLL.ViewModels
         }
         #endregion
         #region PROCESOS
-        public async Task Criticar() 
+        public async Task Criticar()
         {
             string nombre = Nombre;
+
+            if (string.IsNullOrEmpty(Nombre))
+            {
+                await DisplayAlert("Error", "Debes ingresar un nombre.", "OK");
+                return;
+            }
+
+            if (!(Alto || Listo || Raro || Feo || Extravagante || Grande))
+            {
+                await DisplayAlert("Error", "Debes seleccionar al menos un adjetivo, rasgo o caracteristica.", "OK");
+                return;
+            }
+
+            if (Hombre == false && Mujer == false) 
+            {
+                await DisplayAlert("Error", "Debes seleccionar un genero.", "OK");
+                return;
+            }
+
             string alto = null;
             string listo = null;
             string raro = null;
@@ -89,23 +114,77 @@ namespace CriticografoMVVM_DLL.ViewModels
             string extravagante = null;
             string grande = null;
 
-            if (Alto)
-                alto = Hombre ? "Alto" : "Alta";
+            if (Alto) 
+            {
+                if (Hombre == true) 
+                {
+                    alto = "Alto";
+                }
+                else if (Mujer == true)
+                {
+                    alto = "Alta";
+                }
+            }
 
             if (Listo)
-                listo = Hombre ? "Listo" : "Lista";
+            {
+                if (Hombre == true)
+                {
+                    listo = "Listillo";
+                }
+                else if (Mujer == true)
+                {
+                    listo = "Listilla";
+                }
+            }
 
             if (Raro)
-                raro = Hombre ? "Raro" : "Rara";
+            {
+                if (Hombre == true)
+                {
+                    raro = "Raron";
+                }
+                else if (Mujer == true)
+                {
+                    raro = "Rarona";
+                }
+            }
 
             if (Feo)
-                feo = Hombre ? "Feo" : "Fea";
+            {
+                if (Hombre == true)
+                {
+                    feo = "Feito";
+                }
+                else if (Mujer == true)
+                {
+                    feo = "Feita";
+                }
+            }
 
             if (Extravagante)
-                extravagante = Hombre ? "Extravagante" : "Extravagante";
+            {
+                if (Hombre == true)
+                {
+                    extravagante = "Unico";
+                }
+                else if (Mujer == true)
+                {
+                    extravagante = "Unica";
+                }
+            }
 
             if (Grande)
-                grande = Hombre ? "Grande" : "Grande";
+            {
+                if (Hombre == true)
+                {
+                    grande = "Grande";
+                }
+                else if (Mujer == true)
+                {
+                    grande = "Grande";
+                }
+            }
 
             List<string> adjetivos = new List<string>
             {
@@ -133,11 +212,16 @@ namespace CriticografoMVVM_DLL.ViewModels
                 {
                     datasos += " y ";
                 }
+                else 
+                {
+                    datasos += ".";
+                }
             }
 
             Datos = datasos;
-            //await Application.Current.MainPage.DisplayAlert($"Datos de {nombre}", datasos, "OK");
+            //await DisplayAlert($"Datos de {nombre}", datasos, "OK");
         }
+
         #endregion
         #region COMANDOS
         public ICommand CriticarCommand => new Command(async () => await Criticar());
